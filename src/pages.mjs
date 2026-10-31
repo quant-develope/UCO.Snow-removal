@@ -133,7 +133,7 @@ ${moreSection()}`;
   });
 };
 
-// "Our partners": UCO Lights, UCO Gutters and UCO Group. Also shown on the thank-you and post-call pages.
+// "We also work with:" UCO Lights, UCO Gutters and UCO Group. Also shown on the thank-you and post-call pages.
 const partnerCards = [
   { url: site.lightsUrl, track: 'lights_click', brand: 'UCO Lights', title: 'Permanent holiday lights', text: 'Slim LED tracks hidden under your roofline, controlled from your phone. No more ladders every winter.', cta: 'See UCO Lights', img: 'lights-holiday-mix', alt: 'House outlined with permanent multicolour holiday lights' },
   { url: site.guttersUrl, track: 'gutters_click', brand: 'UCO Gutters', title: 'Gutter cleaning & repair', text: 'Gutters cleaned and repaired so meltwater drains away instead of freezing into ice dams and icicles.', cta: 'See UCO Gutters', img: 'winter-icicles', alt: 'Icicles hanging from a roof under heavy snow' },
@@ -143,7 +143,7 @@ const partnerCards = [
 const moreSection = () => `
 <section id="partners" class="section partners-section">
   <div class="container">
-    <h2 class="h2 center">Our <span class="accent">partners</span></h2>
+    <h2 class="h2 center">We also <span class="accent">work with:</span></h2>
     <div class="more-grid">
       ${partnerCards.map((c) => `
       <a class="more-card" href="${c.url}" target="_blank" rel="noopener" data-track="${c.track}">
