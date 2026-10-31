@@ -1,7 +1,7 @@
 // Site-wide settings. Change values here and rebuild (`npm run build`).
 export const site = {
   brand: 'UCO Snow Removal',
-  company: 'UCO Construction Group',
+  company: 'UCO Group',
   // Production URL, used for canonical links, sitemap and structured data.
   // While it is a workers.dev address the www/workers.dev redirects in src/worker.js stay off.
   url: 'https://uco-snow-removal.unknwn-creation.workers.dev',
@@ -13,6 +13,7 @@ export const site = {
   // Sister sites promoted on the "You may be interested" page.
   lightsUrl: 'https://lights-toronto.unknwn-creation.workers.dev/',
   guttersUrl: 'https://gutters-toronto.unknwn-creation.workers.dev/',
+  groupUrl: 'https://www.ucogroup.ca/',
   social: {
     facebook: 'https://www.facebook.com/ucogroup.ca',
     instagram: 'https://www.instagram.com/ucogroup.ca',
@@ -52,7 +53,7 @@ export const values = [
 // Review sites shown as a logo strip (text wordmarks).
 export const badges = ['HomeService', 'HomeStars', 'Home Depot Pro', "Lowe's", 'Bark', 'Google', 'Three Best Rated', 'Houzz'];
 
-// Short excerpts from UCO Construction Group client reviews.
+// Short excerpts from UCO Group client reviews.
 export const reviews = [
   { name: 'Seema Mehta', date: 'July 23, 2026', text: 'Vadym’s team was wonderful. They worked around the clock.' },
   { name: 'Jenn H', date: 'August 10, 2026', text: 'The team was respectful, efficient, hard-working.' },

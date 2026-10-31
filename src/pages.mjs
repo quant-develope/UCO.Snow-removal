@@ -122,7 +122,8 @@ const home = () => {
       </div>
     </div>
   </div>
-</section>`;
+</section>
+${moreSection()}`;
 
   return page({
     path: '/',
@@ -132,27 +133,29 @@ const home = () => {
   });
 };
 
+// "Explore other services we provide": UCO Lights, UCO Gutters and UCO Group. Also shown on the thank-you and post-call pages.
+const partnerCards = [
+  { url: site.lightsUrl, track: 'lights_click', brand: 'UCO Lights', title: 'Permanent holiday lights', text: 'Slim LED tracks hidden under your roofline, controlled from your phone. No more ladders every winter.', cta: 'See UCO Lights', img: 'lights-holiday-mix', alt: 'House outlined with permanent multicolour holiday lights' },
+  { url: site.guttersUrl, track: 'gutters_click', brand: 'UCO Gutters', title: 'Gutter cleaning & repair', text: 'Gutters cleaned and repaired so meltwater drains away instead of freezing into ice dams and icicles.', cta: 'See UCO Gutters', img: 'winter-icicles', alt: 'Icicles hanging from a roof under heavy snow' },
+  { url: site.groupUrl, track: 'group_click', brand: 'UCO Group', title: 'Decks, fences, flooring & painting', text: 'Deck building and restoration, fences, hardwood floors and painting across Toronto and the GTA.', cta: 'Visit ucogroup.ca', logo: true },
+];
+
 const moreSection = () => `
-<section class="section more-section">
-  <div class="container more-grid">
-    <a class="more-card" href="${site.lightsUrl}" target="_blank" rel="noopener" data-track="lights_click">
-      <div class="more-photo">${pic('lights-holiday-mix', 'House outlined with permanent multicolour holiday lights')}</div>
-      <div class="more-copy">
-        <span class="more-brand">Our partners · Holiday lights</span>
-        <h2>Permanent holiday lights, no ladders ever again</h2>
-        <p>Slim LED tracks hidden under your roofline, controlled from your phone.</p>
-        <span class="btn btn-accent">See permanent lights →</span>
-      </div>
-    </a>
-    <a class="more-card" href="${site.guttersUrl}" target="_blank" rel="noopener" data-track="gutters_click">
-      <div class="more-photo">${pic('winter-icicles', 'Icicles hanging from a roof under heavy snow')}</div>
-      <div class="more-copy">
-        <span class="more-brand">Our partners · Gutter cleaning</span>
-        <h2>Icicles on the gutters? That’s a clog.</h2>
-        <p>Gutter cleaning and repair so meltwater drains instead of freezing into ice dams.</p>
-        <span class="btn btn-accent">See gutter cleaning →</span>
-      </div>
-    </a>
+<section id="partners" class="section partners-section">
+  <div class="container">
+    <h2 class="h2 center">Explore other <span class="accent">services we provide</span></h2>
+    <div class="more-grid">
+      ${partnerCards.map((c) => `
+      <a class="more-card" href="${c.url}" target="_blank" rel="noopener" data-track="${c.track}">
+        <div class="more-photo${c.logo ? ' more-logo' : ''}">${c.logo ? '<span class="logo-mark">UCO</span><span class="logo-sub">Group</span>' : pic(c.img, c.alt)}</div>
+        <div class="more-copy">
+          <span class="more-brand">${esc(c.brand)}</span>
+          <h3>${esc(c.title)}</h3>
+          <p>${esc(c.text)}</p>
+          <span class="btn btn-accent">${esc(c.cta)} →</span>
+        </div>
+      </a>`).join('')}
+    </div>
   </div>
 </section>`;
 

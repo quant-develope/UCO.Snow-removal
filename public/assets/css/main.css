@@ -51,7 +51,7 @@ button { font: inherit; cursor: pointer; }
 .scrolled .header-bar { border-radius: 0 0 36px 36px; padding-top: 14px; padding-bottom: 14px; box-shadow: 0 8px 24px rgba(6,68,107,.25); }
 .logo { display: inline-flex; flex-direction: column; align-items: center; text-decoration: none; color: #fff; line-height: 1; }
 .logo-mark { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 34px; letter-spacing: -.01em; color: #fff; text-shadow: 2px 1px 0 var(--orange); }
-.logo-sub { font-size: 7.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; margin-top: 1px; }
+.logo-sub { font-size: 8.5px; font-weight: 600; letter-spacing: .3em; margin-right: -.3em; text-transform: uppercase; margin-top: 1px; }
 .main-nav { margin-left: auto; }
 .main-nav > ul { display: flex; gap: 34px; list-style: none; margin: 0; padding: 0; }
 .main-nav a { text-decoration: none; font-size: 15px; display: inline-flex; align-items: center; gap: 6px; }
@@ -78,7 +78,7 @@ button { font: inherit; cursor: pointer; }
 .menu-phone { display: inline-flex; gap: 8px; align-items: center; color: #fff; text-decoration: none; margin-bottom: 18px; font-size: 17px; }
 body.menu-open { overflow: hidden; }
 
-.header-tag { font-family: var(--head); font-stretch: 125%; font-weight: 700; text-transform: uppercase; font-size: 13px; letter-spacing: .04em; background: var(--orange-btn); color: var(--navy); border-radius: 999px; padding: 8px 16px; white-space: nowrap; margin-left: -12px; }
+.header-tag { font-family: var(--head); font-stretch: 125%; font-weight: 700; text-transform: uppercase; font-size: 13px; letter-spacing: .04em; background: var(--orange-btn); color: var(--navy); border-radius: 999px; padding: 8px 16px; white-space: nowrap; margin-left: auto; }
 
 /* Hero */
 .hero { background: var(--navy); background-image: var(--tex); color: #fff; margin-top: -1px; }
@@ -227,13 +227,19 @@ body.menu-open { overflow: hidden; }
 .kicker { text-transform: uppercase; letter-spacing: .1em; font-weight: 600; font-size: 13px; color: var(--orange); margin: 14px 0 0; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
 .hero-ctas.center { justify-content: center; }
-.more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.partners-section { padding-top: 80px; }
+.more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .more-card { display: flex; flex-direction: column; background: var(--navy); background-image: var(--tex); color: #fff; border-radius: 32px; overflow: hidden; text-decoration: none; }
 .more-photo { aspect-ratio: 16/9; overflow: hidden; }
 .more-photo img { width: 100%; height: 100%; object-fit: cover; }
-.more-copy { padding: 24px 28px 30px; display: grid; gap: 10px; justify-items: start; }
+.more-copy { padding: 22px 24px 28px; display: grid; gap: 10px; justify-items: start; align-content: start; flex: 1; }
+.more-copy .btn { margin-top: auto; align-self: end; }
+.more-logo { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; }
+.more-logo .logo-mark { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 72px; line-height: 1; color: var(--navy); text-shadow: 3px 2px 0 var(--orange); }
+.more-logo .logo-sub { color: var(--navy); font-size: 14px; letter-spacing: .4em; margin-right: -.4em; }
+.more-card { border: 6px solid var(--navy); }
 .more-brand { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--orange); font-weight: 600; }
-.more-copy h2 { font-family: var(--head); font-stretch: 125%; font-size: 20px; text-transform: uppercase; margin: 0; line-height: 1.15; }
+.more-copy h3 { font-family: var(--head); font-stretch: 125%; font-size: 20px; text-transform: uppercase; margin: 0; line-height: 1.15; }
 .more-copy p { margin: 0 0 6px; font-size: 14px; }
 .article h1 { color: var(--navy); font-size: 30px; }
 .article h2 { font-size: 18px; margin-top: 28px; }
@@ -333,5 +339,9 @@ picture { display: block; }
 }
 @media (max-width: 1180px) and (min-width: 961px) {
   .header-phone span { display: none; }
-  .header-tag { font-size: 11px; padding: 7px 12px; margin-left: -8px; }
+  .header-tag { font-size: 11px; padding: 7px 12px; }
+}
+@media (max-width: 960px) {
+  .header-bar { position: relative; }
+  .header-tag { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; }
 }
