@@ -1,0 +1,181 @@
+(function () {
+  'use strict';
+  var dl = (window.dataLayer = window.dataLayer || []);
+
+  // Fade sections in as they scroll into view
+  var items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && items.length) {
+    document.documentElement.classList.add('js');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  }
+
+  // Menu
+  var menu = document.getElementById('site-menu');
+  var toggle = document.querySelector('.menu-toggle');
+  function setMenu(open) {
+    menu.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('menu-open', open);
+    if (open) menu.querySelector('.menu-close').focus();
+  }
+  toggle.addEventListener('click', function () { setMenu(true); });
+  menu.addEventListener('click', function (e) {
+    if (e.target === menu || e.target.closest('.menu-close') || e.target.closest("a")) setMenu(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !menu.hidden) { setMenu(false); toggle.focus(); }
+  });
+
+  // Click tracking for Google Ads / GA4 via GTM
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-track]');
+    if (el) dl.push({ event: el.getAttribute('data-track'), link_location: el.className || 'link' });
+  });
+
+  // After a tap on a call button, move this tab to the "You may be interested" page.
+  // The tab never navigates while the dialer or the iOS "Call?" prompt is opening (iOS
+  // reports that as "site blocked automatic call initiation"): it waits until the
+  // visitor is back on the page and it has stayed on screen for a moment. The tap is
+  // also remembered in sessionStorage, so the page still opens if the browser reloaded
+  // the tab while the visitor was on the call. Where nothing leaves the page (desktop
+  // without a phone app), it moves on after a short pause.
+  var NEXT = '/you-may-be-interested/', KEY = 'callTapAt';
+  var onNext = location.pathname === NEXT;
+  var tapped = false, left = false, timer = 0;
+  var markCall = function (v) { try { v ? sessionStorage.setItem(KEY, String(Date.now())) : sessionStorage.removeItem(KEY); } catch (err) {} };
+  var go = function () {
+    clearTimeout(timer);
+    if (!tapped || document.hidden) return;
+    tapped = false;
+    markCall(false);
+    location.href = NEXT;
+  };
+  var away = function () { if (tapped) { left = true; clearTimeout(timer); } };
+  var back = function () { if (tapped && left && !document.hidden) { clearTimeout(timer); timer = setTimeout(go, 1200); } };
+  if (onNext) markCall(false);
+  else {
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('a[href^="tel:"]')) return;
+      tapped = true; left = false;
+      markCall(true);
+      clearTimeout(timer);
+      timer = setTimeout(function () { if (!left) go(); }, 2500);
+    });
+    document.addEventListener('visibilitychange', function () { document.hidden ? away() : back(); });
+    window.addEventListener('blur', away);
+    window.addEventListener('focus', back);
+    window.addEventListener('pageshow', function () {
+      var at = 0;
+      try { at = +sessionStorage.getItem(KEY) || 0; } catch (err) {}
+      if (at && Date.now() - at < 30 * 60 * 1000) { tapped = true; left = true; back(); }
+      else markCall(false);
+    });
+  }
+
+  // Header turns into a floating pill once the page is scrolled
+  var onScroll = function () { document.documentElement.classList.toggle('scrolled', window.scrollY > 40); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Carousel arrows (services, testimonials)
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-slide]');
+    if (!b) return;
+    var track = document.getElementById(b.getAttribute('data-slide'));
+    var card = track && track.firstElementChild;
+    if (!card) return;
+    track.scrollBy({ left: (+b.getAttribute('data-dir')) * (card.getBoundingClientRect().width + 25), behavior: 'smooth' });
+  });
+
+  // Mobile: show the rest of the services
+  var more = document.querySelector('.services-more');
+  if (more) more.addEventListener('click', function () { more.closest('.services').classList.add('expanded'); });
+
+  // "Get a free quote" opens the estimate form in a popup
+  var modal = document.getElementById('quote');
+  var lastFocus = null;
+  function openModal() {
+    lastFocus = document.activeElement;
+    modal.classList.add('open');
+    document.body.classList.add('menu-open');
+    setTimeout(function () { modal.querySelector('input[name=name]').focus(); }, 30);
+    dl.push({ event: 'quote_open' });
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.classList.remove('menu-open');
+    if (location.hash === '#quote') history.replaceState(null, '', location.pathname + location.search);
+    if (lastFocus) lastFocus.focus();
+  }
+  if (modal) {
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href="#quote"], a[href="/#quote"]');
+      if (a) { e.preventDefault(); openModal(); return; }
+      if (e.target.closest('.modal-close, .modal-backdrop')) { e.preventDefault(); closeModal(); }
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+    if (location.hash === '#quote') { history.replaceState(null, '', location.pathname + location.search); openModal(); }
+  }
+
+  // Keep ad click IDs and UTM params for the session so they reach the form
+  var params = new URLSearchParams(location.search);
+  var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'gclid'];
+  var store = {};
+  try { store = JSON.parse(sessionStorage.getItem('attr') || '{}'); } catch (err) {}
+  keys.forEach(function (k) { if (params.get(k)) store[k] = params.get(k); });
+  try { sessionStorage.setItem('attr', JSON.stringify(store)); } catch (err) {}
+
+  var forms = document.querySelectorAll('.lead-form');
+  var started = false;
+  forms.forEach(function (form) {
+    keys.forEach(function (k) { if (store[k] && form.elements[k]) form.elements[k].value = store[k]; });
+    form.elements.page.value = location.pathname;
+    var status = form.querySelector('.form-status');
+    form.addEventListener('input', function () {
+      if (!started) { started = true; dl.push({ event: 'form_start' }); }
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      status.className = 'form-status';
+      var bad = null;
+      ['name', 'phone', 'email', 'postal'].forEach(function (n) {
+        var f = form.elements[n];
+        var val = f.value.trim();
+        var ok = val !== '' &&
+          (n !== 'phone' || val.replace(/\D/g, '').length >= 10) &&
+          (n !== 'email' || f.checkValidity()) &&
+          (n !== 'postal' || val.replace(/\s/g, '').length >= 5);
+        f.classList.toggle('invalid', !ok);
+        if (!ok && !bad) bad = f;
+      });
+      if (bad) {
+        status.textContent = 'Please fill in your name, a 10-digit phone number, email and postal code.';
+        status.classList.add('error');
+        bad.focus();
+        return;
+      }
+      var btn = form.querySelector('button[type=submit]');
+      var label = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          if (!res.ok || !res.d.ok) throw new Error(res.d.error || 'Request failed');
+          location.href = '/thank-you/';
+        })
+        .catch(function () {
+          btn.disabled = false;
+          btn.textContent = label;
+          var tel = document.querySelector('.header-phone');
+          status.innerHTML = 'Something went wrong and your request didn’t send. Please call us at <a href="' + tel.getAttribute('href') + '">' + tel.textContent.trim() + '</a>.';
+          status.classList.add('error');
+        });
+    });
+  });
+})();
