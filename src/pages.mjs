@@ -137,7 +137,7 @@ ${moreSection()}`;
 const partnerCards = [
   { url: site.lightsUrl, track: 'lights_click', brand: 'UCO Lights', title: 'Permanent holiday lights', text: 'Slim LED tracks hidden under your roofline, controlled from your phone. No more ladders every winter.', cta: 'See UCO Lights', img: 'lights-holiday-mix', alt: 'House outlined with permanent multicolour holiday lights' },
   { url: site.guttersUrl, track: 'gutters_click', brand: 'UCO Gutters', title: 'Gutter cleaning & repair', text: 'Gutters cleaned and repaired so meltwater drains away instead of freezing into ice dams and icicles.', cta: 'See UCO Gutters', img: 'winter-icicles', alt: 'Icicles hanging from a roof under heavy snow' },
-  { url: site.groupUrl, track: 'group_click', brand: 'UCO Group', title: 'Decks, fences, flooring & painting', text: 'Deck building and restoration, fences, hardwood floors and painting across Toronto and the GTA.', cta: 'Visit ucogroup.ca', logo: true },
+  { url: site.groupUrl, track: 'group_click', brand: 'UCO Construction', title: 'Decks, fences, flooring & painting', text: 'Deck building and restoration, fences, hardwood floors and painting across Toronto and the GTA.', cta: 'Visit ucogroup.ca', logo: true },
 ];
 
 const moreSection = () => `
