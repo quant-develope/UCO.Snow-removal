@@ -73,6 +73,7 @@ const header = () => `
 <header class="site-header">
   <div class="header-bar">
     ${logo()}
+    <span class="header-tag">Snow cleaning</span>
     <nav class="main-nav" aria-label="Main menu"><ul>${navLinks()}</ul></nav>
     ${telLink('header-phone', `${icon('phone')}<span>${site.phone.display}</span>`)}
     <a class="btn btn-white header-cta" href="#quote" data-track="quote_click">Get a free quote now</a>
