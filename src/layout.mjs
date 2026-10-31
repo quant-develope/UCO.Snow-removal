@@ -37,11 +37,11 @@ export const socials = (cls = 'socials') => `
   ${Object.entries(site.social).map(([k, url]) => `<li><a href="${url}" target="_blank" rel="noopener" aria-label="${k}">${icon(k)}</a></li>`).join('')}
 </ul>`;
 
-// UCO wordmark (white letters with an orange edge, "CONSTRUCTION" underneath).
+// UCO wordmark (white letters with an orange edge, "GROUP" underneath).
 export const logo = (cls = 'logo') => `
 <a class="${cls}" href="/" aria-label="${esc(site.company)} home">
   <span class="logo-mark">UCO</span>
-  <span class="logo-sub">Construction</span>
+  <span class="logo-sub">Group</span>
 </a>`;
 
 export const arrow = '<svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M8 6h10v10" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
