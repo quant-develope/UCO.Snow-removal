@@ -13,6 +13,7 @@ export const site = {
   // Sister sites promoted on the "You may be interested" page.
   lightsUrl: 'https://lights-toronto.unknwn-creation.workers.dev/',
   guttersUrl: 'https://gutters-toronto.unknwn-creation.workers.dev/',
+  groupUrl: 'https://www.ucogroup.ca/',
   social: {
     facebook: 'https://www.facebook.com/ucogroup.ca',
     instagram: 'https://www.instagram.com/ucogroup.ca',
