@@ -147,7 +147,7 @@ const footer = () => `
   ${telLink('sticky-call', `${icon('phone')}<span>${site.phone.display}</span>`)}
   <a class="sticky-quote" href="#quote" data-track="quote_click">Get a free quote ${arrow}</a>
 </div>
-<a class="fab-whatsapp" href="https://wa.me/${site.whatsapp}" target="_blank" rel="noopener" data-track="whatsapp_click">${icon('whatsapp')}<span class="sr-only">Message us on WhatsApp</span></a>
+${telLink('fab-call', `${icon('phone')}<span class="sr-only">Call ${site.phone.display}</span>`)}
 ${quoteModal()}`;
 
 const orgSchema = () => ({

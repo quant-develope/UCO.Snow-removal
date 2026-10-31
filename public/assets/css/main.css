@@ -346,15 +346,15 @@ picture { display: block; }
   .header-tag { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; }
 }
 
-/* Floating WhatsApp button with a water ripple (same as the other snow sites) */
-.fab-whatsapp {
+/* Floating call button with a water ripple (same spot as the WhatsApp button on the other snow sites) */
+.fab-call {
   position: fixed; right: 16px; bottom: calc(92px + env(safe-area-inset-bottom)); z-index: 45;
   width: 62px; height: 62px; border-radius: 50%; background: linear-gradient(135deg, #2fe07a, #1ebe5b); color: #fff;
   display: grid; place-items: center; box-shadow: 0 12px 26px -8px rgba(17,163,90,.7);
 }
-.fab-whatsapp::before, .fab-whatsapp::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(43,212,122,.6); animation: ripple 2.4s ease-out infinite; }
-.fab-whatsapp::after { animation-delay: 1.2s; }
-.fab-whatsapp .icon { width: 32px; height: 32px; }
+.fab-call::before, .fab-call::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(43,212,122,.6); animation: ripple 2.4s ease-out infinite; }
+.fab-call::after { animation-delay: 1.2s; }
+.fab-call .icon { width: 30px; height: 30px; }
 @keyframes ripple { from { transform: scale(1); opacity: 1; } to { transform: scale(1.8); opacity: 0; } }
-@media (min-width: 961px) { .fab-whatsapp { bottom: 24px; right: 24px; width: 66px; height: 66px; } }
-@media (prefers-reduced-motion: reduce) { .fab-whatsapp::before, .fab-whatsapp::after { animation: none; } }
+@media (min-width: 961px) { .fab-call { bottom: 24px; right: 24px; width: 66px; height: 66px; } }
+@media (prefers-reduced-motion: reduce) { .fab-call::before, .fab-call::after { animation: none; } }

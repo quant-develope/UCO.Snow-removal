@@ -6,8 +6,6 @@ export const site = {
   // While it is a workers.dev address the www/workers.dev redirects in src/worker.js stay off.
   url: 'https://uco-snow-removal.unknwn-creation.workers.dev',
   phone: { display: '(416) 779-0055', tel: '+14167790055' },
-  // WhatsApp chat for the green floating button (international format, digits only).
-  whatsapp: '14167790055',
   email: 'info@ucogroup.ca',
   address: '199 Roehampton Ave, Toronto, ON M4P 1R5',
   hours: 'Mon-Sat, 8:00am-6:00pm',
