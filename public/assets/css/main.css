@@ -335,3 +335,7 @@ picture { display: block; }
   .header-phone span { display: none; }
   .header-tag { font-size: 11px; padding: 7px 12px; margin-left: -8px; }
 }
+@media (max-width: 960px) {
+  .header-bar { position: relative; }
+  .header-tag { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; }
+}
