@@ -5,6 +5,8 @@
   "compatibility_date": "2025-09-01",
   // Keep variables set in the Cloudflare dashboard when deploying from git
   "keep_vars": true,
+  // Needed by Workers Builds for PR preview builds (`wrangler preview`); service bindings are not copied to previews
+  "previews": {},
   "build": { "command": "npm run build" },
   "assets": {
     "directory": "./dist",
